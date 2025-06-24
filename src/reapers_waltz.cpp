@@ -95,26 +95,26 @@ int main(void)
   // });
 
   Level *level = new Level(LevelResources{
-    playerTexture : playerTexture,
-    startCell : startCell,
-    enemyBlueNTexture : enemyBlueNonTexture,
-    enemyBlueHTexture : enemyBlueHosTexture,
-    enemyPinkNTexture : enemyPinkNonTexture,
-    enemyPinkHTexture : enemyPinkHosTexture,
-    crushyStoneCleanTexture : crushyStoneCleanTexture,
-    crushyStoneBloodTexture : crushyStoneBloodTexture,
-    spikesEmptyTexture : spikeHolesTexture,
-    spikesHalfTexture : spikeHalfTexture,
-    spikesFullTexture : spikeOutBloodTexture,
-    footsteps : stepsOgg,
-    crushed : crushOgg,
-    spiked : spikeOgg,
-    caught : deathOgg,
-    mapRes : MapResources{
-      wallTexture : playerTexture,
-      floorTexture : groundTexture,
-    },
-    dialogueBackground : dialogueTexture,
+      .playerTexture = playerTexture,
+      .startCell = startCell,
+      .enemyBlueNTexture = enemyBlueNonTexture,
+      .enemyBlueHTexture = enemyBlueHosTexture,
+      .enemyPinkNTexture = enemyPinkNonTexture,
+      .enemyPinkHTexture = enemyPinkHosTexture,
+      .crushyStoneCleanTexture = crushyStoneCleanTexture,
+      .crushyStoneBloodTexture = crushyStoneBloodTexture,
+      .spikesEmptyTexture = spikeHolesTexture,
+      .spikesHalfTexture = spikeHalfTexture,
+      .spikesFullTexture = spikeOutBloodTexture,
+      .footsteps = stepsOgg,
+      .crushed = crushOgg,
+      .spiked = spikeOgg,
+      .caught = deathOgg,
+      .mapRes = MapResources{
+          .wallTexture = playerTexture,
+          .floorTexture = groundTexture,
+      },
+      .dialogueBackground = dialogueTexture,
   });
 
   // Main game loop

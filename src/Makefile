@@ -64,34 +64,34 @@ ifeq ($(PLATFORM),PLATFORM_DESKTOP)
     ifeq ($(OS),Windows_NT)
         PLATFORM_OS = WINDOWS
         export PATH := $(COMPILER_PATH):$(PATH)
-    else
-        UNAMEOS = $(shell uname)
-        ifeq ($(UNAMEOS),Linux)
-            PLATFORM_OS = LINUX
-        endif
-        ifeq ($(UNAMEOS),FreeBSD)
-            PLATFORM_OS = BSD
-        endif
-        ifeq ($(UNAMEOS),OpenBSD)
-            PLATFORM_OS = BSD
-        endif
-        ifeq ($(UNAMEOS),NetBSD)
-            PLATFORM_OS = BSD
-        endif
-        ifeq ($(UNAMEOS),DragonFly)
-            PLATFORM_OS = BSD
-        endif
-        ifeq ($(UNAMEOS),Darwin)
-            PLATFORM_OS = OSX
-        endif
+    # else
+    #     UNAMEOS = $(shell uname)
+    #     ifeq ($(UNAMEOS),Linux)
+    #         PLATFORM_OS = LINUX
+    #     endif
+    #     ifeq ($(UNAMEOS),FreeBSD)
+    #         PLATFORM_OS = BSD
+    #     endif
+    #     ifeq ($(UNAMEOS),OpenBSD)
+    #         PLATFORM_OS = BSD
+    #     endif
+    #     ifeq ($(UNAMEOS),NetBSD)
+    #         PLATFORM_OS = BSD
+    #     endif
+    #     ifeq ($(UNAMEOS),DragonFly)
+    #         PLATFORM_OS = BSD
+    #     endif
+    #     ifeq ($(UNAMEOS),Darwin)
+    #         PLATFORM_OS = OSX
+    #     endif
     endif
 endif
-ifeq ($(PLATFORM),PLATFORM_DRM)
-    UNAMEOS = $(shell uname)
-    ifeq ($(UNAMEOS),Linux)
-        PLATFORM_OS = LINUX
-    endif
-endif
+# ifeq ($(PLATFORM),PLATFORM_DRM)
+#     UNAMEOS = $(shell uname)
+#     ifeq ($(UNAMEOS),Linux)
+#         PLATFORM_OS = LINUX
+#     endif
+# endif
 
 ifeq ($(PLATFORM_OS),WINDOWS)
     ifeq ($(PLATFORM),PLATFORM_WEB)
@@ -125,13 +125,13 @@ ifeq ($(PLATFORM),PLATFORM_WEB)
     # to use emscripten.h and emscripten_set_main_loop()
     CC = emcc
 endif
-ifeq ($(PLATFORM),PLATFORM_DRM)
-    ifeq ($(USE_RPI_CROSS_COMPILER),TRUE)
-        # Define RPI cross-compiler
-        #CC = armv6j-hardfloat-linux-gnueabi-gcc
-        CC = $(RPI_TOOLCHAIN)/bin/arm-linux-gnueabihf-gcc
-    endif
-endif
+# ifeq ($(PLATFORM),PLATFORM_DRM)
+#     ifeq ($(USE_RPI_CROSS_COMPILER),TRUE)
+#         # Define RPI cross-compiler
+#         #CC = armv6j-hardfloat-linux-gnueabi-gcc
+#         CC = $(RPI_TOOLCHAIN)/bin/arm-linux-gnueabihf-gcc
+#     endif
+# endif
 
 
 # Define default make program: MAKE
@@ -175,19 +175,19 @@ else
         endif
     endif
 endif
-ifeq ($(PLATFORM),PLATFORM_DRM)
-    CFLAGS += -std=gnu99 -DEGL_NO_X11
-endif
+# ifeq ($(PLATFORM),PLATFORM_DRM)
+#     CFLAGS += -std=gnu99 -DEGL_NO_X11
+# endif
 
 # Define include paths for required headers: INCLUDE_PATHS
 #------------------------------------------------------------------------------------------------
 INCLUDE_PATHS += -I. -Iexternal -I$(RAYLIB_INCLUDE_PATH)
 
 # Define additional directories containing required header files
-ifeq ($(PLATFORM),PLATFORM_DRM)
-    # DRM required libraries
-    INCLUDE_PATHS += -I/usr/include/libdrm
-endif
+# ifeq ($(PLATFORM),PLATFORM_DRM)
+#     # DRM required libraries
+#     INCLUDE_PATHS += -I/usr/include/libdrm
+# endif
 ifeq ($(PLATFORM),PLATFORM_DESKTOP)
     ifeq ($(PLATFORM_OS),BSD)
         # Consider -L$(RAYLIB_H_INSTALL_PATH)
@@ -208,15 +208,15 @@ ifeq ($(PLATFORM),PLATFORM_DESKTOP)
             LDFLAGS += -Wl,--subsystem,windows
         endif
     endif
-    ifeq ($(PLATFORM_OS),BSD)
-        # Consider -L$(RAYLIB_INSTALL_PATH)
-        LDFLAGS += -Lsrc -L/usr/local/lib
-    endif
-    ifeq ($(PLATFORM_OS),LINUX)
-        # Reset everything.
-        # Precedence: immediately local, installed version, raysan5 provided libs
-        #LDFLAGS += -L$(RAYLIB_RELEASE_PATH)
-    endif
+    # ifeq ($(PLATFORM_OS),BSD)
+    #     # Consider -L$(RAYLIB_INSTALL_PATH)
+    #     LDFLAGS += -Lsrc -L/usr/local/lib
+    # endif
+    # ifeq ($(PLATFORM_OS),LINUX)
+    #     # Reset everything.
+    #     # Precedence: immediately local, installed version, raysan5 provided libs
+    #     #LDFLAGS += -L$(RAYLIB_RELEASE_PATH)
+    # endif
 endif
 ifeq ($(PLATFORM),PLATFORM_WEB)
     # -Os                        # size optimization
@@ -272,48 +272,48 @@ ifeq ($(PLATFORM),PLATFORM_DESKTOP)
             LDLIBS += -static -lpthread
         endif
     endif
-    ifeq ($(PLATFORM_OS),LINUX)
-        # Libraries for Debian GNU/Linux desktop compiling
-        # NOTE: Required packages: libegl1-mesa-dev
-        LDLIBS = -lraylib -lGL -lm -lpthread -ldl -lrt
+    # ifeq ($(PLATFORM_OS),LINUX)
+    #     # Libraries for Debian GNU/Linux desktop compiling
+    #     # NOTE: Required packages: libegl1-mesa-dev
+    #     LDLIBS = -lraylib -lGL -lm -lpthread -ldl -lrt
 
-        # On Wayland windowing system, additional libraries requires
-        ifeq ($(USE_WAYLAND_DISPLAY),TRUE)
-            LDLIBS += -lwayland-client -lwayland-cursor -lwayland-egl -lxkbcommon
-        else
-            # On X11 requires also below libraries
-            LDLIBS += -lX11
-            # NOTE: It seems additional libraries are not required any more, latest GLFW just dlopen them
-            #LDLIBS += -lXrandr -lXinerama -lXi -lXxf86vm -lXcursor
-        endif
-        # Explicit link to libc
-        ifeq ($(RAYLIB_LIBTYPE),SHARED)
-            LDLIBS += -lc
-        endif
-    endif
-    ifeq ($(PLATFORM_OS),OSX)
-        # Libraries for OSX 10.9 desktop compiling
-        # NOTE: Required packages: libopenal-dev libegl1-mesa-dev
-        LDLIBS = -lraylib -framework OpenGL -framework Cocoa -framework IOKit -framework CoreAudio -framework CoreVideo
-    endif
-    ifeq ($(PLATFORM_OS),BSD)
-        # Libraries for FreeBSD, OpenBSD, NetBSD, DragonFly desktop compiling
-        # NOTE: Required packages: mesa-libs
-        LDLIBS = -lraylib -lGL -lpthread -lm
+    #     # On Wayland windowing system, additional libraries requires
+    #     ifeq ($(USE_WAYLAND_DISPLAY),TRUE)
+    #         LDLIBS += -lwayland-client -lwayland-cursor -lwayland-egl -lxkbcommon
+    #     else
+    #         # On X11 requires also below libraries
+    #         LDLIBS += -lX11
+    #         # NOTE: It seems additional libraries are not required any more, latest GLFW just dlopen them
+    #         #LDLIBS += -lXrandr -lXinerama -lXi -lXxf86vm -lXcursor
+    #     endif
+    #     # Explicit link to libc
+    #     ifeq ($(RAYLIB_LIBTYPE),SHARED)
+    #         LDLIBS += -lc
+    #     endif
+    # endif
+    # ifeq ($(PLATFORM_OS),OSX)
+    #     # Libraries for OSX 10.9 desktop compiling
+    #     # NOTE: Required packages: libopenal-dev libegl1-mesa-dev
+    #     LDLIBS = -lraylib -framework OpenGL -framework Cocoa -framework IOKit -framework CoreAudio -framework CoreVideo
+    # endif
+    # ifeq ($(PLATFORM_OS),BSD)
+    #     # Libraries for FreeBSD, OpenBSD, NetBSD, DragonFly desktop compiling
+    #     # NOTE: Required packages: mesa-libs
+    #     LDLIBS = -lraylib -lGL -lpthread -lm
 
-        # On XWindow requires also below libraries
-        LDLIBS += -lX11 -lXrandr -lXinerama -lXi -lXxf86vm -lXcursor
-    endif
+    #     # On XWindow requires also below libraries
+    #     LDLIBS += -lX11 -lXrandr -lXinerama -lXi -lXxf86vm -lXcursor
+    # endif
 endif
 ifeq ($(PLATFORM),PLATFORM_WEB)
     # Libraries for web (HTML5) compiling
     LDLIBS = $(RAYLIB_LIB_PATH)/libraylib.web.a
 endif
-ifeq ($(PLATFORM),PLATFORM_DRM)
-    # Libraries for DRM compiling
-    # NOTE: Required packages: libasound2-dev (ALSA)
-    LDLIBS = -lraylib -lGLESv2 -lEGL -lpthread -lrt -lm -lgbm -ldrm -ldl
-endif
+# ifeq ($(PLATFORM),PLATFORM_DRM)
+#     # Libraries for DRM compiling
+#     # NOTE: Required packages: libasound2-dev (ALSA)
+#     LDLIBS = -lraylib -lGLESv2 -lEGL -lpthread -lrt -lm -lgbm -ldrm -ldl
+# endif
 
 
 # Define all object files from source files
@@ -351,18 +351,18 @@ ifeq ($(PLATFORM),PLATFORM_DESKTOP)
     ifeq ($(PLATFORM_OS),WINDOWS)
 		del *.o *.exe /s
     endif
-    ifeq ($(PLATFORM_OS),LINUX)
-		find . -type f -executable -delete
-		rm -fv *.o
-    endif
-    ifeq ($(PLATFORM_OS),OSX)
-		rm -f *.o external/*.o $(PROJECT_NAME)
-    endif
+    # ifeq ($(PLATFORM_OS),LINUX)
+	# 	find . -type f -executable -delete
+	# 	rm -fv *.o
+    # endif
+    # ifeq ($(PLATFORM_OS),OSX)
+	# 	rm -f *.o external/*.o $(PROJECT_NAME)
+    # endif
 endif
-ifeq ($(PLATFORM),PLATFORM_DRM)
-	find . -type f -executable -delete
-	rm -fv *.o
-endif
+# ifeq ($(PLATFORM),PLATFORM_DRM)
+# 	find . -type f -executable -delete
+# 	rm -fv *.o
+# endif
 ifeq ($(PLATFORM),PLATFORM_WEB)
 	del *.o *.html *.js
 endif
