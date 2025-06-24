@@ -3,14 +3,14 @@
 #include "globals.h"
 #include "level.h"
 
-#include "test_movement.h"
-#include "test_map.h"
-#include "test_collisions.h"
-#include "test_animations.h"
-#include "test_death.h"
-#include "test_audio.h"
-#include "test_enemy.h"
-#include "test_dialogue.h"
+// #include "test_movement.h"
+// #include "test_map.h"
+// #include "test_collisions.h"
+// #include "test_animations.h"
+// #include "test_death.h"
+// #include "test_audio.h"
+// #include "test_enemy.h"
+// #include "test_dialogue.h"
 
 //------------------------------------------------------------------------------------
 // Program main entry point
