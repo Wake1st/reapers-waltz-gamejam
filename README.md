@@ -1,52 +1,10 @@
------------------------------------
+# Reapers Waltz
 
-_DISCLAIMER:_
+![Reapers Waltz](screenshots/reapers-waltz-cover.png "Reapers Waltz")
 
-Welcome to the **raylib gamejam template**!
+## Description
 
-This template provides a base structure to start developing a small raylib game in plain C for any of the proposed **raylib gamejams**!
-
-Please, considering the following usual gamejam restrictions: 
-
- - Game must be made with raylib
- - Game must be compiled for web
- - _Specific gamejam restrictions if defined_
- 
-NOTE: Several GitHub Actions workflows have been preconfigured to automatically build your game for Windows, Linux and WebAssembly on each commit. Those workflows automatically sync with latest version of raylib available to build.
-
-The repo is also pre-configured with a default `LICENSE` (zlib/libpng) and a `README.md` (this one) to be properly filled by users. Feel free to change the LICENSE as required.
-
-All the sections defined by `$(Data to Fill)` are expected to be edited and filled properly. It's recommended to delete this disclaimer message after editing this `README.md` file.
-
-_GETTING STARTED:_
-
-First press the 'Use this template' button to clone the repo.
-
-This template does not include a copy of raylib itself. By default it expects to find raylib in the same folder as the one to which you've cloned this template. To start using this template with raylib 5.0, you can do the following:
-
-```sh
-mkdir ~/raylib-gamejam && cd ~/raylib-gamejam
-git clone --depth 1 --branch 5.0 https://github.com/raysan5/raylib
-make -C raylib/src
-git clone https://github.com/$(User Name)/$(Repo Name).git
-cd $(Repo Name)
-make -C src
-src/raylib_game
-```
-
-This template has been created to be used with raylib (www.raylib.com) and it's licensed under an unmodified zlib/libpng license.
-
-_Copyright (c) 2022-2025 Ramon Santamaria ([@raysan5](https://twitter.com/raysan5))_
-
------------------------------------
-
-## $(Game Title)
-
-![$(Game Title)](screenshots/screenshot000.png "$(Game Title)")
-
-### Description
-
-$(Your Project Description)
+Topdown 2D roguelite dungeon crawler game made for the Isekai Horror Jam 2025. While the game was no officially submitted, a lot of hard work was put into it before and after the jam.
 
 ### Features
 
@@ -54,33 +12,32 @@ $(Your Project Description)
  - $(Project Feature 02)
  - $(Project Feature 03)
 
-### Controls
+## Controls
 
 Keyboard/Mouse:
- - $(Project Controls 01)
- - $(Project Controls 02)
- - $(Project Controls 03)
+ - arrow keys to move
+ - 'x' key for action
 
-### Screenshots
+## Screenshots
 
 _TODO: Show your game to the world, animated GIFs recommended!._
 
-### Developers
+## Credits
 
- - $(Developer 01) - $(Role/Tasks Developed)
- - $(Developer 02) - $(Role/Tasks Developed)
- - $(Developer 03) - $(Role/Tasks Developed)
+ - [Ashassault](https://ashassault.itch.io/) - 2D Art / Game Design
+ - [fenixfables](https://itch.io/profile/fenixfables) - 2D Art / Animation / Game Design
+ - [Paradoxid](https://itch.io/profile/paradoxid) - 2D Art / SFX / Music / Game Design
+ - [mylo-vanna](https://mylo-vanna.itch.io/) - SFX / Music / Game Design
+ - [wake1st](https://wake1st.itch.io/) - Programmer
 
-### Links
+## Links
 
  - YouTube Gameplay: $(YouTube Link)
- - itch.io Release: $(itch.io Game Page)
+ - itch.io Release: [isekai-horror-game-jam](https://ashassault.itch.io/isekai-horror-game-jam)
  - Steam Release: $(Steam Game Page)
 
-### License
+## License
 
 This project sources are licensed under an unmodified zlib/libpng license, which is an OSI-certified, BSD-like license that allows static linking with closed source software. Check [LICENSE](LICENSE) for further details.
 
-$(Additional Licenses)
-
-*Copyright (c) $(Year) $(User Name) ($(User Twitter/GitHub Name))*
+*Copyright (c) 2025 Joel Wakefield (Wake1st)*
