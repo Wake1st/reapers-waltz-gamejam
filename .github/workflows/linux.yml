@@ -54,7 +54,7 @@ jobs:
     - name: Build raylib Library
       run: |
         cd raylib/src
-        gcc --version
+        g++ --version
         make PLATFORM=PLATFORM_DESKTOP BUILD_MODE=RELEASE RAYLIB_LIBTYPE=STATIC RAYLIB_PROJECT_RELEASE_PATH=. -B
 
     - name: Build Product
